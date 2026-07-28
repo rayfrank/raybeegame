@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="RayBee: Co-op Mode, a small playable love story made from Ray and Bee's memories."
+    />
+    <meta name="theme-color" content="#111319" />
+    <title>RayBee: Co-op Mode</title>
+    <link rel="icon" href="data:," />
+    <link rel="stylesheet" href="raybee-coop.css?v=20260728a" />
+  </head>
+  <body>
+    <main class="game-shell" id="gameShell">
+      <canvas id="gameCanvas" aria-label="RayBee cooperative memory game"></canvas>
+
+      <header class="hud" id="hud" aria-live="polite">
+        <div class="hud-chapter">
+          <p id="chapterNumber">Chapter 1 of 5</p>
+          <h2 id="chapterTitle">Find each other</h2>
+        </div>
+        <div class="hud-actions">
+          <p class="heart-meter" id="heartMeter" hidden>
+            <span aria-hidden="true">♥</span>
+            <strong id="heartCount">0</strong>/6
+          </p>
+          <button class="quiet-button" id="soundButton" type="button">
+            Sound on
+          </button>
+          <a class="quiet-button" href="raybee-coop-qr.html" target="_blank">
+            Print QR
+          </a>
+        </div>
+      </header>
+
+      <section class="screen start-screen" id="startScreen">
+        <img
+          src="assets/photos/happy-us-again.jpeg"
+          alt="Ray and Bee smiling and holding hands"
+        />
+        <div class="screen-shade" aria-hidden="true"></div>
+        <div class="start-copy">
+          <p class="eyebrow">Player one + player two</p>
+          <h1>RayBee:<br />Co-op Mode</h1>
+          <p class="start-note">
+            One story, two players, and every good level still ahead of us.
+          </p>
+          <button class="primary-button" id="startButton" type="button">
+            Start game
+          </button>
+          <p class="control-note">WASD, arrow keys, joystick, or tap to move</p>
+        </div>
+      </section>
+
+      <section class="screen memory-screen" id="memoryScreen" hidden>
+        <figure class="memory-figure">
+          <img id="memoryImage" src="" alt="" />
+          <div class="memory-shade" aria-hidden="true"></div>
+          <figcaption>
+            <p class="eyebrow" id="memoryKicker">Memory unlocked</p>
+            <h2 id="memoryTitle"></h2>
+            <p id="memoryText"></p>
+            <button class="primary-button" id="memoryContinue" type="button">
+              Continue
+            </button>
+          </figcaption>
+        </figure>
+      </section>
+
+      <section class="screen question-screen" id="questionScreen" hidden>
+        <img
+          src="assets/photos/everything-better.jpeg"
+          alt="Ray and Bee holding hands at the cinema"
+        />
+        <div class="screen-shade" aria-hidden="true"></div>
+        <div class="question-content">
+          <p class="eyebrow" id="questionProgress">Question 1 of 3</p>
+          <h2 id="questionTitle">A perfect date begins with...</h2>
+          <div class="choice-row" id="questionChoices"></div>
+          <p class="answer-note" id="answerNote" aria-live="polite"></p>
+        </div>
+      </section>
+
+      <section class="screen rhythm-screen" id="rhythmScreen" hidden>
+        <div class="rhythm-copy">
+          <p class="eyebrow">Koda dance floor</p>
+          <h2>Catch our step</h2>
+          <p id="rhythmStatus">Eight little beats, no wrong kind of dancing.</p>
+        </div>
+        <div class="rhythm-target" id="rhythmTarget" aria-live="polite">
+          <span aria-hidden="true">↑</span>
+        </div>
+        <div class="rhythm-progress" id="rhythmProgress" aria-label="Dance progress"></div>
+        <div class="direction-pad" aria-label="Dance controls">
+          <button type="button" data-direction="left" aria-label="Left">←</button>
+          <button type="button" data-direction="up" aria-label="Up">↑</button>
+          <button type="button" data-direction="down" aria-label="Down">↓</button>
+          <button type="button" data-direction="right" aria-label="Right">→</button>
+        </div>
+      </section>
+
+      <section class="screen build-screen" id="buildScreen" hidden>
+        <img
+          class="build-art"
+          src="assets/illustrations/raybee-game-collab.webp"
+          alt="An illustrated Ray and Bee making a game together at a gaming PC"
+        />
+        <div class="build-shade" aria-hidden="true"></div>
+        <div class="build-workspace">
+          <div class="build-heading">
+            <p class="eyebrow">Final build</p>
+            <h2>Build our co-op code</h2>
+          </div>
+          <div class="code-editor" aria-label="Complete the RayBee code">
+            <p><span class="code-pink">const</span> foundation = [</p>
+            <p class="code-indent">
+              <button class="code-slot" type="button" data-slot="trust">...</button>,
+              <button class="code-slot" type="button" data-slot="laughter">...</button>
+            </p>
+            <p>];</p>
+            <p><span class="code-pink">while</span> (together) {</p>
+            <p class="code-indent">
+              make(<button class="code-slot" type="button" data-slot="memories">...</button>);
+            </p>
+            <p class="code-indent">
+              <button class="code-slot" type="button" data-slot="choice">...</button>();
+            </p>
+            <p>}</p>
+          </div>
+          <div class="code-tokens" id="codeTokens" aria-label="Code choices">
+            <button type="button" data-token="memories">memories</button>
+            <button type="button" data-token="choice">chooseEachOther</button>
+            <button type="button" data-token="trust">trust</button>
+            <button type="button" data-token="laughter">laughter</button>
+          </div>
+          <p class="build-status" id="buildStatus" aria-live="polite">
+            Select a word, then place it in its matching line.
+          </p>
+        </div>
+      </section>
+
+      <section class="screen final-screen" id="finalScreen" hidden>
+        <div class="final-hero">
+          <img
+            src="assets/photos/happy-us.jpeg"
+            alt="Ray embracing Bee as they smile together"
+          />
+          <div class="screen-shade" aria-hidden="true"></div>
+          <div class="final-copy">
+            <p class="eyebrow">Co-op complete</p>
+            <h2>My favourite player</h2>
+            <p>
+              My girlfriend, I built this because everything really is better
+              with you. I do not know every level waiting for us, but I know
+              who I want beside me while we play them.
+            </p>
+            <p class="final-line">
+              You are my girlfriend, my best friend, and my favourite co-op
+              partner. I choose you.
+            </p>
+            <div class="final-actions">
+              <a class="primary-button" href="raybee-coop-qr.html" target="_blank">
+                Print our QR
+              </a>
+              <button class="quiet-button" id="replayButton" type="button">
+                Play again
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="memory-strip" aria-label="More of our memories">
+          <figure>
+            <img src="assets/photos/car-photo.jpeg" alt="Bee holding Ray's hand in the car" />
+            <figcaption>Quiet drives, held hands.</figcaption>
+          </figure>
+          <figure>
+            <img
+              src="assets/photos/pentagon-five.jpeg"
+              alt="Ray, Bee, Mike, Mel, and Qwarra at the cinema"
+            />
+            <figcaption>The Pentagon 5.</figcaption>
+          </figure>
+          <figure>
+            <img src="assets/photos/video-calls.jpeg" alt="Ray and Bee smiling on a video call" />
+            <figcaption>Near, even from far away.</figcaption>
+          </figure>
+          <figure>
+            <img
+              src="assets/photos/golden-hearts.jpeg"
+              alt="Ray and Bee holding hands during a bright drive"
+            />
+            <figcaption>Golden hearts and honey among rocks.</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <div class="objective" id="objective" aria-live="polite">
+        Walk to Bee
+      </div>
+
+      <div class="joystick-wrap" id="joystickWrap" aria-label="Movement joystick">
+        <div class="joystick" id="joystick">
+          <span id="joystickKnob"></span>
+        </div>
+      </div>
+
+      <audio id="backgroundMusic" loop preload="metadata">
+        <source src="assets/audio/summer-love.mp3" type="audio/mpeg" />
+      </audio>
+    </main>
+
+    <script src="raybee-coop.js?v=20260728a" defer></script>
+  </body>
+</html>

@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#fff8f8" />
+    <title>RayBee: Co-op Mode QR</title>
+    <style>
+      :root {
+        font-family:
+          Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+          "Segoe UI", sans-serif;
+        color: #17151a;
+        background: #e9e5e7;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        min-height: 100%;
+        margin: 0;
+      }
+
+      body {
+        display: grid;
+        place-items: center;
+        padding: 28px;
+      }
+
+      .print-sheet {
+        width: min(148mm, 100%);
+        min-height: 205mm;
+        border: 1px solid #d9cdd1;
+        padding: 15mm 13mm;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        justify-content: center;
+        color: #17151a;
+        background: #fff8f8;
+        text-align: center;
+      }
+
+      .eyebrow {
+        margin: 0 0 8px;
+        color: #b62f59;
+        font-size: 10pt;
+        font-weight: 900;
+        text-transform: uppercase;
+      }
+
+      h1 {
+        max-width: 104mm;
+        margin: 0;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 31pt;
+        line-height: 0.98;
+      }
+
+      .subtitle {
+        max-width: 105mm;
+        margin: 7mm 0;
+        font-size: 12pt;
+        line-height: 1.55;
+      }
+
+      .qr-frame {
+        width: 98mm;
+        border: 3mm solid #f45f8f;
+        padding: 6mm;
+        background: #ffffff;
+      }
+
+      .qr-frame img {
+        width: 100%;
+        display: block;
+        image-rendering: pixelated;
+      }
+
+      .scan-copy {
+        margin: 7mm 0 0;
+        font-size: 13pt;
+        font-weight: 850;
+      }
+
+      .url {
+        max-width: 112mm;
+        margin: 3mm 0 0;
+        overflow-wrap: anywhere;
+        color: #5c4e53;
+        font-size: 8.5pt;
+      }
+
+      .signature {
+        margin: 10mm 0 0;
+        color: #b62f59;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 18pt;
+        font-weight: 800;
+      }
+
+      .page-actions {
+        position: fixed;
+        top: 18px;
+        right: 18px;
+        display: flex;
+        gap: 8px;
+      }
+
+      .page-actions button,
+      .page-actions a {
+        min-height: 44px;
+        border: 0;
+        border-radius: 6px;
+        padding: 0 18px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        color: #ffffff;
+        background: #b62f59;
+        font: 800 0.9rem/1 system-ui;
+        text-decoration: none;
+        cursor: pointer;
+      }
+
+      @media screen and (max-width: 600px) {
+        body {
+          display: block;
+          padding: 78px 12px 20px;
+        }
+
+        .print-sheet {
+          width: 100%;
+          min-height: 0;
+          padding: 34px 18px;
+        }
+
+        h1 {
+          font-size: 26pt;
+        }
+
+        .subtitle {
+          font-size: 10.5pt;
+        }
+
+        .qr-frame {
+          width: min(98mm, 100%);
+          padding: 4mm;
+        }
+
+        .page-actions {
+          top: 12px;
+          right: 12px;
+          left: 12px;
+          justify-content: flex-end;
+        }
+
+        .page-actions button,
+        .page-actions a {
+          padding: 0 13px;
+          font-size: 0.78rem;
+        }
+      }
+
+      @page {
+        size: A5 portrait;
+        margin: 0;
+      }
+
+      @media print {
+        html,
+        body {
+          width: 148mm;
+          height: 210mm;
+          background: #fff8f8;
+        }
+
+        body {
+          display: block;
+          padding: 0;
+        }
+
+        .print-sheet {
+          width: 148mm;
+          min-height: 210mm;
+          border: 0;
+        }
+
+        .page-actions {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="page-actions" aria-label="QR print options">
+      <button type="button" onclick="window.print()">Print</button>
+      <a href="raybee-coop-qr-print.pdf" download>Download PDF</a>
+    </nav>
+    <main class="print-sheet">
+      <p class="eyebrow">Player two invitation</p>
+      <h1>RayBee:<br />Co-op Mode</h1>
+      <p class="subtitle">
+        I made a little game from our memories. This level only starts when
+        you arrive.
+      </p>
+      <div class="qr-frame">
+        <img
+          src="assets/qr/raybee-coop-qr.png"
+          alt="QR code opening RayBee Co-op Mode"
+        />
+      </div>
+      <p class="scan-copy">Scan to start our next chapter.</p>
+      <p class="url">https://rayfrank.github.io/raybeegame/</p>
+      <p class="signature">Everything is better with you.</p>
+    </main>
+  </body>
+</html>
