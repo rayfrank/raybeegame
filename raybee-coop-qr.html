@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#fff8f8" />
+    <meta name="theme-color" content="#c93364" />
     <title>RayBee: Co-op Mode QR</title>
     <style>
       :root {
@@ -11,7 +11,7 @@
           Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
           "Segoe UI", sans-serif;
         color: #17151a;
-        background: #e9e5e7;
+        background: #dfe7e2;
       }
 
       * {
@@ -28,49 +28,115 @@
         display: grid;
         place-items: center;
         padding: 28px;
+        background:
+          linear-gradient(135deg, #dfe7e2 0 48%, #f2dce4 48% 100%);
+      }
+
+      img {
+        max-width: 100%;
       }
 
       .print-sheet {
-        width: min(148mm, 100%);
-        min-height: 205mm;
-        border: 1px solid #d9cdd1;
-        padding: 15mm 13mm;
-        display: flex;
-        align-items: center;
-        flex-direction: column;
-        justify-content: center;
+        width: 148mm;
+        height: 210mm;
+        overflow: hidden;
+        border: 1px solid #d7cbd0;
+        padding: 7mm;
+        display: grid;
+        grid-template-rows: 128mm minmax(0, 1fr);
+        gap: 4mm;
         color: #17151a;
         background: #fff8f8;
-        text-align: center;
+        box-shadow: 0 24px 70px rgba(44, 30, 37, 0.2);
+      }
+
+      .keepsake-top {
+        min-width: 0;
+        min-height: 0;
+        display: grid;
+        grid-template-columns: 72mm minmax(0, 1fr);
+        gap: 5mm;
+      }
+
+      .main-photo {
+        position: relative;
+        min-width: 0;
+        height: 128mm;
+        margin: 0;
+        overflow: hidden;
+        border-radius: 2mm;
+        background: #15171d;
+      }
+
+      .main-photo > img {
+        width: 100%;
+        height: 100%;
+        display: block;
+        object-fit: cover;
+        object-position: center 50%;
+      }
+
+      .main-photo figcaption {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        padding: 4mm;
+        color: #fff8f8;
+        background: rgba(16, 18, 23, 0.82);
+      }
+
+      .main-photo strong,
+      .main-photo span {
+        display: block;
+      }
+
+      .main-photo strong {
+        font: 800 11pt/1.1 Georgia, "Times New Roman", serif;
+      }
+
+      .main-photo span {
+        margin-top: 1mm;
+        color: #f3c86b;
+        font-size: 6.7pt;
+        font-weight: 800;
+      }
+
+      .invitation {
+        min-width: 0;
+        display: flex;
+        align-items: flex-start;
+        flex-direction: column;
       }
 
       .eyebrow {
-        margin: 0 0 8px;
+        margin: 0 0 2mm;
         color: #b62f59;
-        font-size: 10pt;
+        font-size: 7pt;
         font-weight: 900;
         text-transform: uppercase;
       }
 
       h1 {
-        max-width: 104mm;
         margin: 0;
         font-family: Georgia, "Times New Roman", serif;
-        font-size: 31pt;
-        line-height: 0.98;
+        font-size: 24pt;
+        line-height: 0.92;
       }
 
       .subtitle {
-        max-width: 105mm;
-        margin: 7mm 0;
-        font-size: 12pt;
-        line-height: 1.55;
+        margin: 4mm 0;
+        color: #4f4549;
+        font-size: 8.2pt;
+        line-height: 1.42;
       }
 
       .qr-frame {
-        width: 98mm;
-        border: 3mm solid #f45f8f;
-        padding: 6mm;
+        width: 50mm;
+        margin: 0 auto;
+        border: 2mm solid #c93364;
+        border-radius: 2mm;
+        padding: 3mm;
         background: #ffffff;
       }
 
@@ -81,29 +147,119 @@
       }
 
       .scan-copy {
-        margin: 7mm 0 0;
-        font-size: 13pt;
-        font-weight: 850;
+        width: 100%;
+        margin: 3mm 0 0;
+        text-align: center;
+        font-size: 9pt;
+        font-weight: 900;
       }
 
       .url {
-        max-width: 112mm;
-        margin: 3mm 0 0;
+        width: 100%;
+        margin: 1.5mm 0 0;
         overflow-wrap: anywhere;
-        color: #5c4e53;
-        font-size: 8.5pt;
+        color: #6c5c62;
+        text-align: center;
+        font-size: 5.6pt;
+      }
+
+      .tiny-note {
+        width: 100%;
+        margin: auto 0 0;
+        padding-top: 3mm;
+        border-top: 0.5mm solid #5da783;
+        color: #b62f59;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 9.5pt;
+        font-weight: 800;
+        line-height: 1.2;
+        text-align: center;
+      }
+
+      .memory-section {
+        min-width: 0;
+        min-height: 0;
+        display: grid;
+        grid-template-rows: auto minmax(0, 1fr) auto;
+        gap: 2mm;
+      }
+
+      .memory-heading {
+        margin: 0;
+        color: #594b51;
+        font-size: 6.7pt;
+        font-weight: 900;
+        text-transform: uppercase;
+      }
+
+      .memory-grid {
+        min-height: 0;
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        grid-template-rows: repeat(2, minmax(0, 1fr));
+        gap: 2mm;
+      }
+
+      .memory {
+        min-width: 0;
+        min-height: 0;
+        margin: 0;
+        overflow: hidden;
+        border-radius: 1.5mm;
+        background: #17151a;
+      }
+
+      .memory img {
+        width: 100%;
+        height: 100%;
+        display: block;
+        object-fit: cover;
+      }
+
+      .memory-wide {
+        grid-column: span 2;
+      }
+
+      .memory-happy img {
+        object-position: center 43%;
+      }
+
+      .memory-care img {
+        object-position: center 46%;
+      }
+
+      .memory-car img {
+        object-position: center 35%;
+      }
+
+      .memory-cinema img {
+        object-position: center 74%;
+      }
+
+      .memory-pentagon img {
+        object-position: center 47%;
+      }
+
+      .memory-call img {
+        object-position: center 29%;
+      }
+
+      .memory-golden img {
+        object-position: center 70%;
       }
 
       .signature {
-        margin: 10mm 0 0;
+        margin: 0;
         color: #b62f59;
         font-family: Georgia, "Times New Roman", serif;
-        font-size: 18pt;
+        font-size: 9.5pt;
         font-weight: 800;
+        text-align: right;
       }
 
       .page-actions {
         position: fixed;
+        z-index: 5;
         top: 18px;
         right: 18px;
         display: flex;
@@ -126,29 +282,119 @@
         cursor: pointer;
       }
 
-      @media screen and (max-width: 600px) {
+      .page-actions button:focus-visible,
+      .page-actions a:focus-visible {
+        outline: 3px solid #f3c86b;
+        outline-offset: 3px;
+      }
+
+      @media screen and (max-width: 680px) {
         body {
           display: block;
           padding: 78px 12px 20px;
+          background: #dfe7e2;
         }
 
         .print-sheet {
           width: 100%;
-          min-height: 0;
-          padding: 34px 18px;
+          height: auto;
+          overflow: visible;
+          padding: 14px;
+          display: block;
+        }
+
+        .keepsake-top {
+          display: block;
+        }
+
+        .main-photo {
+          width: 100%;
+          height: auto;
+          aspect-ratio: 3 / 4;
+        }
+
+        .main-photo figcaption {
+          padding: 18px;
+        }
+
+        .main-photo strong {
+          font-size: 1.35rem;
+        }
+
+        .main-photo span {
+          font-size: 0.78rem;
+        }
+
+        .invitation {
+          align-items: center;
+          padding: 26px 8px 30px;
+          text-align: center;
+        }
+
+        .eyebrow {
+          margin-bottom: 8px;
+          font-size: 0.72rem;
         }
 
         h1 {
-          font-size: 26pt;
+          font-size: clamp(2.6rem, 14vw, 4.4rem);
         }
 
         .subtitle {
-          font-size: 10.5pt;
+          max-width: 470px;
+          margin: 18px 0;
+          font-size: 0.95rem;
+          line-height: 1.5;
         }
 
         .qr-frame {
-          width: min(98mm, 100%);
-          padding: 4mm;
+          width: min(260px, 86vw);
+          border-width: 8px;
+          padding: 12px;
+        }
+
+        .scan-copy {
+          margin-top: 14px;
+          font-size: 1rem;
+        }
+
+        .url {
+          margin-top: 6px;
+          font-size: 0.7rem;
+        }
+
+        .tiny-note {
+          max-width: 360px;
+          margin-top: 20px;
+          padding-top: 14px;
+          font-size: 1rem;
+        }
+
+        .memory-section {
+          display: block;
+        }
+
+        .memory-heading {
+          margin: 4px 0 12px;
+          font-size: 0.72rem;
+        }
+
+        .memory-grid {
+          display: grid;
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          grid-template-rows: none;
+          grid-auto-rows: 150px;
+          gap: 8px;
+        }
+
+        .memory-wide {
+          grid-column: span 2;
+        }
+
+        .signature {
+          margin-top: 16px;
+          font-size: 1rem;
+          text-align: center;
         }
 
         .page-actions {
@@ -185,8 +431,9 @@
 
         .print-sheet {
           width: 148mm;
-          min-height: 210mm;
+          height: 210mm;
           border: 0;
+          box-shadow: none;
         }
 
         .page-actions {
@@ -200,22 +447,87 @@
       <button type="button" onclick="window.print()">Print</button>
       <a href="raybee-coop-qr-print.pdf" download>Download PDF</a>
     </nav>
+
     <main class="print-sheet">
-      <p class="eyebrow">Player two invitation</p>
-      <h1>RayBee:<br />Co-op Mode</h1>
-      <p class="subtitle">
-        I made a little game from our memories. This level only starts when
-        you arrive.
-      </p>
-      <div class="qr-frame">
-        <img
-          src="assets/qr/raybee-coop-qr.png"
-          alt="QR code opening RayBee Co-op Mode"
-        />
-      </div>
-      <p class="scan-copy">Scan to start our next chapter.</p>
-      <p class="url">https://rayfrank.github.io/raybeegame/</p>
-      <p class="signature">Everything is better with you.</p>
+      <section class="keepsake-top" aria-label="RayBee game invitation">
+        <figure class="main-photo">
+          <img
+            src="assets/photos/happy-us-again.jpeg"
+            alt="Ray and Bee smiling together while Bee wears her red outfit"
+          />
+          <figcaption>
+            <strong>Player one + player two</strong>
+            <span>My favourite co-op team.</span>
+          </figcaption>
+        </figure>
+
+        <div class="invitation">
+          <p class="eyebrow">A little game made for my girlfriend</p>
+          <h1>RayBee:<br />Co-op Mode</h1>
+          <p class="subtitle">
+            I made a little game from the memories we have already created.
+            This level only starts when you arrive.
+          </p>
+          <div class="qr-frame">
+            <img
+              src="assets/qr/raybee-coop-qr.png"
+              alt="QR code opening RayBee Co-op Mode"
+            />
+          </div>
+          <p class="scan-copy">Scan to start our next chapter.</p>
+          <p class="url">https://rayfrank.github.io/raybeegame/</p>
+          <p class="tiny-note">Everything is better with you.</p>
+        </div>
+      </section>
+
+      <section class="memory-section" aria-label="A collection of Ray and Bee memories">
+        <p class="memory-heading">A few beautiful levels we have already played</p>
+        <div class="memory-grid">
+          <figure class="memory memory-happy">
+            <img
+              src="assets/photos/happy-us.jpeg"
+              alt="Ray embracing Bee while she smiles in her red outfit"
+            />
+          </figure>
+          <figure class="memory memory-care">
+            <img
+              src="assets/photos/care.jpeg"
+              alt="Bee caring for Ray while they hold hands"
+            />
+          </figure>
+          <figure class="memory memory-car">
+            <img
+              src="assets/photos/car-photo.jpeg"
+              alt="Bee holding Ray's hand in the car"
+            />
+          </figure>
+          <figure class="memory memory-cinema">
+            <img
+              src="assets/photos/everything-better.jpeg"
+              alt="Ray and Bee holding hands at the cinema"
+            />
+          </figure>
+          <figure class="memory memory-wide memory-pentagon">
+            <img
+              src="assets/photos/pentagon-five.jpeg"
+              alt="Ray, Bee, Mike, Mel, and Qwarra at the cinema"
+            />
+          </figure>
+          <figure class="memory memory-call">
+            <img
+              src="assets/photos/video-calls.jpeg"
+              alt="Ray and Bee smiling during a video call"
+            />
+          </figure>
+          <figure class="memory memory-golden">
+            <img
+              src="assets/photos/golden-hearts.jpeg"
+              alt="Ray and Bee holding hands during a bright drive"
+            />
+          </figure>
+        </div>
+        <p class="signature">For Bee, with love from Ray.</p>
+      </section>
     </main>
   </body>
 </html>
