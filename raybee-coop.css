@@ -68,7 +68,7 @@ a:focus-visible {
 
 .hud {
   position: absolute;
-  z-index: 20;
+  z-index: 40;
   top: 0;
   left: 0;
   width: 100%;
@@ -142,8 +142,28 @@ a:focus-visible {
     border-color 160ms ease;
 }
 
+.icon-button {
+  width: 44px;
+  min-width: 44px;
+  height: 44px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  display: inline-grid;
+  place-items: center;
+  color: var(--paper);
+  background: rgba(23, 26, 33, 0.86);
+  font-size: 1.05rem;
+  font-weight: 900;
+  cursor: pointer;
+  transition:
+    transform 160ms ease,
+    background-color 160ms ease,
+    border-color 160ms ease;
+}
+
 .quiet-button:hover,
-.primary-button:hover {
+.primary-button:hover,
+.icon-button:hover {
   transform: translateY(-2px);
   border-color: rgba(255, 255, 255, 0.45);
 }
@@ -151,6 +171,56 @@ a:focus-visible {
 .primary-button {
   border-color: var(--pink);
   background: var(--rose);
+}
+
+.instruction-panel {
+  position: absolute;
+  z-index: 50;
+  top: 94px;
+  left: clamp(18px, 3vw, 44px);
+  width: min(390px, calc(100% - 36px));
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 6px;
+  padding: 18px;
+  color: var(--paper);
+  background: rgba(16, 18, 23, 0.96);
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.34);
+}
+
+.instruction-panel h2,
+.instruction-panel p {
+  margin: 0;
+}
+
+.instruction-panel h2 {
+  font-size: 1.2rem;
+  line-height: 1.2;
+}
+
+.instruction-panel > p:not(.eyebrow) {
+  margin-top: 9px;
+  color: var(--muted);
+  font-size: 0.9rem;
+  line-height: 1.45;
+}
+
+.instruction-panel .instruction-controls {
+  padding-left: 10px;
+  border-left: 3px solid var(--gold);
+  color: var(--paper);
+  font-weight: 750;
+}
+
+.instruction-dismiss {
+  min-height: 38px;
+  margin-top: 14px;
+  border: 1px solid var(--pink);
+  border-radius: 6px;
+  padding: 0 16px;
+  color: var(--paper);
+  background: var(--rose);
+  font-weight: 850;
+  cursor: pointer;
 }
 
 .screen {
@@ -663,9 +733,41 @@ a:focus-visible {
     font-size: 0.72rem;
   }
 
+  .hud-actions .icon-button {
+    width: 38px;
+    min-width: 38px;
+    height: 38px;
+    font-size: 0.9rem;
+  }
+
+  .hud-actions .print-link {
+    display: none;
+  }
+
   .heart-meter {
     min-width: 54px;
     font-size: 0.76rem;
+  }
+
+  .instruction-panel {
+    top: 78px;
+    right: 12px;
+    left: 12px;
+    width: auto;
+    padding: 15px;
+  }
+
+  .instruction-panel h2 {
+    font-size: 1.05rem;
+  }
+
+  .instruction-panel > p:not(.eyebrow) {
+    font-size: 0.82rem;
+    line-height: 1.4;
+  }
+
+  .instruction-dismiss {
+    width: 100%;
   }
 
   .start-screen > img {
@@ -826,6 +928,13 @@ a:focus-visible {
 }
 
 @media (max-height: 620px) and (orientation: landscape) {
+  .instruction-panel {
+    top: 72px;
+    width: min(360px, calc(100% - 24px));
+    max-height: calc(100dvh - 84px);
+    overflow-y: auto;
+  }
+
   .start-copy {
     bottom: 18px;
   }

@@ -11,7 +11,13 @@
     chapterTitle: document.querySelector("#chapterTitle"),
     heartMeter: document.querySelector("#heartMeter"),
     heartCount: document.querySelector("#heartCount"),
+    helpButton: document.querySelector("#helpButton"),
     soundButton: document.querySelector("#soundButton"),
+    instructionPanel: document.querySelector("#instructionPanel"),
+    instructionTitle: document.querySelector("#instructionTitle"),
+    instructionText: document.querySelector("#instructionText"),
+    instructionControls: document.querySelector("#instructionControls"),
+    instructionDismiss: document.querySelector("#instructionDismiss"),
     startScreen: document.querySelector("#startScreen"),
     startButton: document.querySelector("#startButton"),
     memoryScreen: document.querySelector("#memoryScreen"),
@@ -84,6 +90,36 @@
     }
   ];
 
+  const chapterInstructions = {
+    1: {
+      title: "Find each other",
+      text: "Guide Ray along the dotted path until he reaches Bee.",
+      controls:
+        "Phone: drag the pink joystick or tap the floor. Computer: use WASD or the arrow keys."
+    },
+    2: {
+      title: "Collect our golden hearts",
+      text: "Move the two of you into every glowing heart until the counter reaches six.",
+      controls:
+        "Phone: drag the joystick or tap near a heart. Computer: use WASD or the arrow keys."
+    },
+    3: {
+      title: "Play our question game",
+      text: "Choose the answer that feels most like us. The next question appears automatically.",
+      controls: "Tap one answer for each of the three questions. There are no wrong choices."
+    },
+    4: {
+      title: "Catch the Koda rhythm",
+      text: "Look at the large arrow, then press the matching direction to complete all eight beats.",
+      controls: "Phone: tap the arrow buttons. Computer: use the arrow keys or WASD."
+    },
+    5: {
+      title: "Build our co-op code",
+      text: "Choose a word below the code, then place it in the matching dotted slot.",
+      controls: "Fill all four slots. A wrong match simply lets you try another line."
+    }
+  };
+
   const questions = [
     {
       title: "A perfect date begins with...",
@@ -130,6 +166,8 @@
   let dancePulse = 0;
   let completionLocked = false;
   let joystickPointer = null;
+  let activeChapter = 1;
+  let instructionsOpen = false;
 
   const ray = { x: 190, y: 490, speed: 285, facing: 1 };
   const bee = { x: 1050, y: 350, facing: -1 };
@@ -150,6 +188,8 @@
     }
 
     ui.startButton.addEventListener("click", startGame);
+    ui.helpButton.addEventListener("click", toggleInstructions);
+    ui.instructionDismiss.addEventListener("click", () => setInstructionsOpen(false));
     ui.soundButton.addEventListener("click", toggleSound);
     ui.memoryContinue.addEventListener("click", continueFromMemory);
     ui.replayButton.addEventListener("click", resetGame);
@@ -235,8 +275,44 @@
   }
 
   function setChapter(number, title) {
+    activeChapter = number;
     ui.chapterNumber.textContent = `Chapter ${number} of 5`;
     ui.chapterTitle.textContent = title;
+    ui.helpButton.hidden = false;
+    showChapterInstructions(number);
+  }
+
+  function showChapterInstructions(number) {
+    const instructions = chapterInstructions[number];
+    if (!instructions) return;
+    ui.instructionTitle.textContent = instructions.title;
+    ui.instructionText.textContent = instructions.text;
+    ui.instructionControls.textContent = instructions.controls;
+    setInstructionsOpen(true);
+  }
+
+  function toggleInstructions() {
+    if (instructionsOpen) {
+      setInstructionsOpen(false);
+    } else {
+      showChapterInstructions(activeChapter);
+    }
+  }
+
+  function setInstructionsOpen(open) {
+    instructionsOpen = open;
+    ui.instructionPanel.hidden = !open;
+    ui.helpButton.setAttribute("aria-expanded", String(open));
+    ui.helpButton.setAttribute("aria-label", open ? "Hide instructions" : "Show instructions");
+    ui.helpButton.title = open ? "Hide instructions" : "Show instructions";
+
+    if (open) {
+      keys.clear();
+      input.x = 0;
+      input.y = 0;
+      input.pointerTarget = null;
+      ui.joystickKnob.style.transform = "translate(-50%, -50%)";
+    }
   }
 
   async function startMusic() {
@@ -265,6 +341,8 @@
     memoryNext = next;
     mode = "memory";
     input.pointerTarget = null;
+    setInstructionsOpen(false);
+    ui.helpButton.hidden = true;
     ui.memoryImage.src = memory.image;
     ui.memoryImage.alt = memory.alt;
     ui.memoryKicker.textContent = memory.kicker;
@@ -331,7 +409,7 @@
   }
 
   function answerQuestion(question) {
-    if (completionLocked) return;
+    if (instructionsOpen || completionLocked) return;
     completionLocked = true;
     ui.answerNote.textContent = question.reply;
     ui.questionChoices.querySelectorAll("button").forEach((button) => {
@@ -363,7 +441,7 @@
   }
 
   function handleRhythmInput(direction) {
-    if (mode !== "rhythm" || completionLocked) return;
+    if (instructionsOpen || mode !== "rhythm" || completionLocked) return;
     if (direction !== rhythmSequence[rhythmIndex]) {
       ui.rhythmTarget.classList.remove("is-hit");
       ui.rhythmTarget.classList.add("is-miss");
@@ -410,7 +488,7 @@
   }
 
   function selectCodeToken(button) {
-    if (button.disabled) return;
+    if (instructionsOpen || button.disabled) return;
     selectedToken = button.dataset.token;
     document.querySelectorAll("[data-token]").forEach((token) => {
       token.classList.toggle("is-selected", token === button);
@@ -419,6 +497,7 @@
   }
 
   function placeCodeToken(slot) {
+    if (instructionsOpen) return;
     if (!selectedToken || slot.dataset.filled) {
       ui.buildStatus.textContent = selectedToken
         ? "That line is already complete."
@@ -462,6 +541,8 @@
 
   function showFinale() {
     mode = "final";
+    setInstructionsOpen(false);
+    ui.helpButton.hidden = true;
     ui.hud.hidden = true;
     ui.objective.hidden = true;
     ui.joystickWrap.hidden = true;
@@ -472,6 +553,11 @@
 
   function handleKeyDown(event) {
     const key = event.key.toLowerCase();
+    if (instructionsOpen) {
+      if (key === "escape") setInstructionsOpen(false);
+      return;
+    }
+
     const movementKeys = ["arrowup", "arrowdown", "arrowleft", "arrowright", "w", "a", "s", "d"];
     if (movementKeys.includes(key)) event.preventDefault();
 
@@ -494,7 +580,7 @@
   }
 
   function handleCanvasPointer(event) {
-    if (mode !== "world") return;
+    if (instructionsOpen || mode !== "world") return;
     const rect = canvas.getBoundingClientRect();
     const x = (event.clientX - rect.left - view.offsetX) / view.scale;
     const y = (event.clientY - rect.top - view.offsetY) / view.scale;
@@ -505,6 +591,7 @@
   }
 
   function beginJoystick(event) {
+    if (instructionsOpen) return;
     joystickPointer = event.pointerId;
     ui.joystick.setPointerCapture(event.pointerId);
     updateJoystick(event);
@@ -549,6 +636,7 @@
 
   function update(delta) {
     dancePulse = Math.max(0, dancePulse - delta * 2.8);
+    if (instructionsOpen) return;
     if (mode !== "world") return;
 
     const controlled = scene === "meet" ? ray : pair;

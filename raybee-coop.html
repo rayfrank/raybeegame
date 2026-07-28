@@ -10,7 +10,7 @@
     <meta name="theme-color" content="#111319" />
     <title>RayBee: Co-op Mode</title>
     <link rel="icon" href="data:," />
-    <link rel="stylesheet" href="raybee-coop.css?v=20260728a" />
+    <link rel="stylesheet" href="raybee-coop.css?v=20260728b" />
   </head>
   <body>
     <main class="game-shell" id="gameShell">
@@ -26,14 +26,49 @@
             <span aria-hidden="true">♥</span>
             <strong id="heartCount">0</strong>/6
           </p>
+          <button
+            class="icon-button"
+            id="helpButton"
+            type="button"
+            aria-label="Show instructions"
+            aria-controls="instructionPanel"
+            aria-expanded="false"
+            title="Show instructions"
+          >
+            <span aria-hidden="true">?</span>
+          </button>
           <button class="quiet-button" id="soundButton" type="button">
             Sound on
           </button>
-          <a class="quiet-button" href="raybee-coop-qr.html" target="_blank">
+          <a
+            class="quiet-button print-link"
+            href="raybee-coop-qr.html"
+            target="_blank"
+          >
             Print QR
           </a>
         </div>
       </header>
+
+      <aside
+        class="instruction-panel"
+        id="instructionPanel"
+        aria-labelledby="instructionTitle"
+        aria-describedby="instructionText instructionControls"
+        hidden
+      >
+        <p class="eyebrow">How to play</p>
+        <h2 id="instructionTitle">Find each other</h2>
+        <p id="instructionText">
+          Guide Ray along the dotted path until he reaches Bee.
+        </p>
+        <p class="instruction-controls" id="instructionControls">
+          On mobile, drag the joystick or tap the floor.
+        </p>
+        <button class="instruction-dismiss" id="instructionDismiss" type="button">
+          Got it
+        </button>
+      </aside>
 
       <section class="screen start-screen" id="startScreen">
         <img
@@ -50,7 +85,10 @@
           <button class="primary-button" id="startButton" type="button">
             Start game
           </button>
-          <p class="control-note">WASD, arrow keys, joystick, or tap to move</p>
+          <p class="control-note">
+            Phone: drag the joystick or tap the floor. Computer: use WASD or
+            arrow keys.
+          </p>
         </div>
       </section>
 
@@ -212,6 +250,6 @@
       </audio>
     </main>
 
-    <script src="raybee-coop.js?v=20260728a" defer></script>
+    <script src="raybee-coop.js?v=20260728b" defer></script>
   </body>
 </html>
