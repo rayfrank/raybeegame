@@ -11,7 +11,7 @@
           Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
           "Segoe UI", sans-serif;
         color: #25151d;
-        background: #ef9fbd;
+        background: #efa0be;
       }
 
       * {
@@ -28,7 +28,7 @@
         display: grid;
         place-items: center;
         padding: 28px;
-        background: #ef9fbd;
+        background: #efa0be;
       }
 
       img {
@@ -36,117 +36,107 @@
       }
 
       .print-sheet {
-        position: relative;
         width: 148mm;
         height: 210mm;
         overflow: hidden;
-        border: 1px solid #bd3468;
-        background: #dd5b8d;
+        border: 1px solid #b62f59;
+        display: grid;
+        grid-template-rows: 111mm 99mm;
+        background: #ffe8f1;
         box-shadow: 0 26px 72px rgba(76, 22, 44, 0.28);
       }
 
-      .sunset-background,
-      .pink-wash {
-        position: absolute;
+      .sunset-hero {
+        position: relative;
+        min-width: 0;
+        min-height: 0;
+        overflow: hidden;
+        background: #7a294c;
       }
 
-      .sunset-background {
-        top: -2%;
-        left: -10%;
-        width: 110%;
-        height: 104%;
-        max-width: none;
+      .sunset-hero > img {
+        width: 100%;
+        height: 100%;
         display: block;
         object-fit: cover;
-        object-position: center;
+        object-position: center 78%;
       }
 
-      .pink-wash {
+      .sunset-wash {
+        position: absolute;
         inset: 0;
-        background: rgba(210, 45, 108, 0.2);
+        background: rgba(205, 43, 105, 0.14);
       }
 
-      .center-panel {
-        position: relative;
+      .hero-copy {
+        position: absolute;
         z-index: 1;
-        width: 90mm;
-        height: 198mm;
-        margin: 6mm auto;
-        border: 0.8mm solid rgba(255, 255, 255, 0.8);
+        top: 6mm;
+        left: 50%;
+        width: 108mm;
+        transform: translateX(-50%);
+        border: 0.5mm solid rgba(255, 255, 255, 0.68);
         border-radius: 2mm;
-        padding: 4mm 5mm;
-        display: flex;
-        align-items: center;
-        flex-direction: column;
-        color: #291720;
-        background: rgba(255, 235, 244, 0.88);
-        box-shadow: 0 5mm 14mm rgba(75, 20, 43, 0.25);
+        padding: 3mm 5mm;
+        color: #fff8fb;
+        background: rgba(59, 20, 38, 0.74);
         text-align: center;
       }
 
       .eyebrow {
         margin: 0;
-        color: #bd245d;
-        font-size: 6.5pt;
+        color: #f7b7cf;
+        font-size: 7pt;
         font-weight: 900;
         text-transform: uppercase;
       }
 
       h1 {
-        margin: 1mm 0 0;
+        margin: 1.2mm 0 0;
         font-family: Georgia, "Times New Roman", serif;
-        font-size: 21pt;
+        font-size: 24pt;
         line-height: 0.94;
       }
 
-      .subtitle {
-        max-width: 72mm;
-        margin: 2.2mm 0;
-        color: #5e3948;
-        font-size: 6.7pt;
+      .hero-copy p:last-child {
+        margin: 2mm 0 0;
+        color: #ffe3ed;
+        font-size: 7.2pt;
         line-height: 1.35;
       }
 
-      .main-photo {
-        position: relative;
-        width: 48mm;
-        height: 59mm;
-        margin: 0;
-        overflow: hidden;
-        border: 1.2mm solid #ffffff;
-        border-radius: 2mm;
-        outline: 0.8mm solid #d23870;
-        background: #24161d;
-        box-shadow: 0 2mm 6mm rgba(74, 24, 44, 0.22);
-      }
-
-      .main-photo img {
-        width: 100%;
-        height: 100%;
-        display: block;
-        object-fit: cover;
-        object-position: center 49%;
-      }
-
-      .main-photo figcaption {
+      .scene-label {
         position: absolute;
-        right: 0;
-        bottom: 0;
-        left: 0;
-        padding: 2mm;
+        z-index: 1;
+        right: 5mm;
+        bottom: 5mm;
+        border: 0.4mm solid rgba(255, 255, 255, 0.72);
+        border-radius: 1.5mm;
+        padding: 2mm 3mm;
         color: #fff8fb;
-        background: rgba(41, 23, 32, 0.84);
-        font: 800 6.4pt/1.1 Georgia, "Times New Roman", serif;
+        background: rgba(59, 20, 38, 0.72);
+        font: 800 7pt/1 Georgia, "Times New Roman", serif;
+      }
+
+      .invitation {
+        min-width: 0;
+        min-height: 0;
+        padding: 3mm 7mm 2mm;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        background: #ffe8f1;
+        text-align: center;
       }
 
       .qr-frame {
-        width: 42mm;
-        margin-top: 3mm;
-        border: 1.8mm solid #d23870;
+        flex: 0 0 auto;
+        width: 40mm;
+        border: 1.7mm solid #d23870;
         border-radius: 2mm;
-        padding: 2.6mm;
+        padding: 2.4mm;
         background: #ffffff;
-        box-shadow: 0 2mm 5mm rgba(74, 24, 44, 0.16);
+        box-shadow: 0 1.5mm 4mm rgba(74, 24, 44, 0.14);
       }
 
       .qr-frame img {
@@ -156,20 +146,20 @@
       }
 
       .scan-copy {
-        margin: 2mm 0 0;
-        font-size: 7.3pt;
+        margin: 1.5mm 0 0;
+        font-size: 7.4pt;
         font-weight: 900;
       }
 
       .url {
-        margin: 0.8mm 0 0;
+        margin: 0.5mm 0 0;
         overflow-wrap: anywhere;
-        color: #72505e;
-        font-size: 4.8pt;
+        color: #765363;
+        font-size: 4.7pt;
       }
 
       .memory-heading {
-        margin: 2.4mm 0 1.4mm;
+        margin: 1.7mm 0 1.1mm;
         color: #a92859;
         font-size: 5.5pt;
         font-weight: 900;
@@ -177,10 +167,11 @@
       }
 
       .memory-grid {
-        width: 77mm;
-        height: 26mm;
+        flex: 0 0 24mm;
+        width: 134mm;
+        height: 24mm;
         display: grid;
-        grid-template-columns: repeat(4, minmax(0, 1fr));
+        grid-template-columns: repeat(6, minmax(0, 1fr));
         grid-template-rows: repeat(2, minmax(0, 1fr));
         gap: 1.2mm;
       }
@@ -190,7 +181,7 @@
         min-height: 0;
         margin: 0;
         overflow: hidden;
-        border: 0.5mm solid rgba(255, 255, 255, 0.9);
+        border: 0.45mm solid #ffffff;
         border-radius: 1.2mm;
         background: #25151d;
       }
@@ -202,8 +193,17 @@
         object-fit: cover;
       }
 
-      .memory-wide {
+      .memory-feature {
         grid-column: span 2;
+        grid-row: span 2;
+      }
+
+      .memory-pentagon {
+        grid-column: span 2;
+      }
+
+      .memory-feature img {
+        object-position: center 48%;
       }
 
       .memory-happy img {
@@ -261,7 +261,7 @@
         align-items: center;
         justify-content: center;
         color: #ffffff;
-        background: #bd245d;
+        background: #b62f59;
         font: 800 0.9rem/1 system-ui;
         text-decoration: none;
         cursor: pointer;
@@ -277,28 +277,27 @@
         body {
           display: block;
           padding: 78px 10px 20px;
-          background: #ef9fbd;
         }
 
         .print-sheet {
           width: 100%;
           height: auto;
-          min-height: 0;
           overflow: hidden;
+          display: block;
         }
 
-        .sunset-background {
-          min-height: 100%;
-          object-position: center;
+        .sunset-hero {
+          height: min(138vw, 530px);
         }
 
-        .center-panel {
-          width: calc(100% - 24px);
-          height: auto;
-          min-height: 0;
-          margin: 12px auto;
-          padding: 24px 14px;
-          background: rgba(255, 235, 244, 0.88);
+        .sunset-hero > img {
+          object-position: center 72%;
+        }
+
+        .hero-copy {
+          top: 18px;
+          width: calc(100% - 30px);
+          padding: 14px 16px;
         }
 
         .eyebrow {
@@ -307,32 +306,29 @@
 
         h1 {
           margin-top: 6px;
-          font-size: clamp(2.6rem, 13vw, 4rem);
+          font-size: clamp(2.5rem, 12vw, 3.8rem);
         }
 
-        .subtitle {
-          max-width: 430px;
-          margin: 14px 0 18px;
-          font-size: 0.9rem;
-          line-height: 1.45;
+        .hero-copy p:last-child {
+          margin-top: 8px;
+          font-size: 0.8rem;
+          line-height: 1.4;
         }
 
-        .main-photo {
-          width: min(260px, 78vw);
-          height: auto;
-          aspect-ratio: 3 / 4;
-          border-width: 5px;
-          outline-width: 3px;
+        .scene-label {
+          right: 14px;
+          bottom: 14px;
+          padding: 8px 11px;
+          font-size: 0.8rem;
         }
 
-        .main-photo figcaption {
-          padding: 12px;
-          font-size: 0.9rem;
+        .invitation {
+          min-height: 0;
+          padding: 24px 14px 26px;
         }
 
         .qr-frame {
           width: min(250px, 76vw);
-          margin-top: 24px;
           border-width: 7px;
           padding: 11px;
         }
@@ -361,7 +357,12 @@
           gap: 7px;
         }
 
-        .memory-wide {
+        .memory-feature {
+          grid-column: span 2;
+          grid-row: auto;
+        }
+
+        .memory-pentagon {
           grid-column: span 2;
         }
 
@@ -394,7 +395,7 @@
         body {
           width: 148mm;
           height: 210mm;
-          background: #dd5b8d;
+          background: #ffe8f1;
         }
 
         body {
@@ -422,29 +423,24 @@
     </nav>
 
     <main class="print-sheet">
-      <img
-        class="sunset-background"
-        src="assets/illustrations/raybee-njugu-sunset.jpg"
-        alt="A cartoon portrait of Ray and Bee sharing njugu under a tree at sunset"
-      />
-      <div class="pink-wash" aria-hidden="true"></div>
+      <section class="sunset-hero" aria-label="Ray and Bee sharing njugu at sunset">
+        <img
+          src="assets/illustrations/raybee-njugu-sunset.jpg"
+          alt="A cartoon portrait of Ray and Bee sharing njugu under a tree at sunset"
+        />
+        <div class="sunset-wash" aria-hidden="true"></div>
+        <div class="hero-copy">
+          <p class="eyebrow">A little game made for my girlfriend</p>
+          <h1>RayBee: Co&#8209;op Mode</h1>
+          <p>
+            Our favourite levels are the simple ones: a sunset, a shared
+            packet of njugu, and time beside you.
+          </p>
+        </div>
+        <p class="scene-label">Our njugu sunset</p>
+      </section>
 
-      <section class="center-panel" aria-label="RayBee game invitation">
-        <p class="eyebrow">A little game made for my girlfriend</p>
-        <h1>RayBee:<br />Co-op Mode</h1>
-        <p class="subtitle">
-          I made a little game from the memories we have already created.
-          This level only starts when you arrive.
-        </p>
-
-        <figure class="main-photo">
-          <img
-            src="assets/photos/happy-us-again.jpeg"
-            alt="Ray and Bee smiling together while Bee wears her red outfit"
-          />
-          <figcaption>My favourite player, right beside me.</figcaption>
-        </figure>
-
+      <section class="invitation" aria-label="RayBee game QR invitation">
         <div class="qr-frame">
           <img
             src="assets/qr/raybee-coop-qr.png"
@@ -454,8 +450,14 @@
         <p class="scan-copy">Scan to start our next chapter.</p>
         <p class="url">https://rayfrank.github.io/raybeegame/</p>
 
-        <p class="memory-heading">A few beautiful levels we have already played</p>
+        <p class="memory-heading">The real memories behind our little game</p>
         <div class="memory-grid">
+          <figure class="memory memory-feature">
+            <img
+              src="assets/photos/happy-us-again.jpeg"
+              alt="Ray and Bee smiling together while Bee wears her red outfit"
+            />
+          </figure>
           <figure class="memory memory-happy">
             <img
               src="assets/photos/happy-us.jpeg"
@@ -480,7 +482,7 @@
               alt="Ray and Bee holding hands at the cinema"
             />
           </figure>
-          <figure class="memory memory-wide memory-pentagon">
+          <figure class="memory memory-pentagon">
             <img
               src="assets/photos/pentagon-five.jpeg"
               alt="Ray, Bee, Mike, Mel, and Qwarra at the cinema"
